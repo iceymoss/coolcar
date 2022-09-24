@@ -1,0 +1,29 @@
+apiVersion: v1
+data:
+  .dockercfg: eyJjY3IuY2NzLnRlbmNlbnR5dW4uY29tIjp7InVzZXJuYW1lIjoiMTAwMDI0MTU4NDU0IiwicGFzc3dvcmQiOiJ7QXBwbGljYXRpb25Ub2tlbjphYzNkNDRkZjIzM2FkMDQ3OTYyZTJhODllMzEwMjA4N30iLCJlbWFpbCI6IjEwMDAyNDE1ODQ1NEBxcS5jb20iLCJhdXRoIjoiTVRBd01ESTBNVFU0TkRVME9udEJjSEJzYVdOaGRHbHZibFJ2YTJWdU9tRmpNMlEwTkdSbU1qTXpZV1F3TkRjNU5qSmxNbUU0T1dVek1UQXlNRGczZlE9PSJ9fQ==
+kind: Secret
+metadata:
+  creationTimestamp: "2022-05-07T14:09:18Z"
+  labels:
+    qcloud-app: qcloudregistrykey
+  managedFields:
+  - apiVersion: v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:data:
+        .: {}
+        f:.dockercfg: {}
+      f:metadata:
+        f:labels:
+          .: {}
+          f:qcloud-app: {}
+      f:type: {}
+    manager: nightsWatch
+    operation: Update
+    time: "2022-05-07T14:09:18Z"
+  name: qcloudregistrykey
+  namespace: default
+  resourceVersion: "719971170"
+  selfLink: /api/v1/namespaces/default/secrets/qcloudregistrykey
+  uid: 5f4ca6b1-fc51-4c30-9983-720ff02f0bdc
+type: kubernetes.io/dockercfg

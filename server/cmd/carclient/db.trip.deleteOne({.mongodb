@@ -1,0 +1,3 @@
+db.trip.deleteOne({
+  "_id": ObjectId("62763367d920393674b23e8a")
+})

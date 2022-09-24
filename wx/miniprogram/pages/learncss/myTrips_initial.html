@@ -1,0 +1,67 @@
+<div class="starsy">
+    <div id="title" class="red">租辆酷车</div>
+    <div>css教学</div>
+    <div class="stars"></div>
+</div>
+<div class="trips">
+    <div class="item blue">
+        <div>中关村到天安门</div>
+        <div id="size">价格：120元</div>
+    </div>
+    <div class="item red">
+        <div>陆家嘴到迪士尼</div>
+        <div id="size">价格：50元</div>
+        <div class="star"></div>
+    </div>
+    <div class="item blue">
+        <div>天河体育中心到广州塔</div>
+        <div id="size">价格：80元</div>
+    </div>
+</div>
+
+<style>
+    div {
+        font-size: large;
+    }
+    #title{
+        font-size: 40px;
+    }
+    #item{
+        font-size: 1px;
+    }
+    .red{
+        color:red
+    }
+    .blue{
+        color:blue;
+    }
+    #size{
+        font-size: 3px;
+    }
+    .item.blue{
+        color:cyan;
+    }
+    .item{
+        border: 2px solid purple;
+        position: relative;
+    }
+    .star{
+        height: 10px;
+        width: 10px;
+        background-color: red;
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+    .stars{
+        height: 81;
+        width: 20px;
+        position: absolute;
+        background-color: purple;
+        top: 0;
+        right: 0;
+}
+.starsy{
+    position:relative
+}
+</style>

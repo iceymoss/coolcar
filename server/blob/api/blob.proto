@@ -1,0 +1,43 @@
+syntax = "proto3";
+package blob.v1;
+option go_package="coolcar/blob/api/gen/v1;blobpb";
+//不对外暴露接口，不需要配置yaml文件
+//proflie传入的accountID和有效期
+message CreateBlobRequest {
+    string account = 1;
+    int32 upload_url_timeout_sec = 2;
+}
+
+//返回blobID和上传储桶预签名url
+message CreateBlobResponse {
+    string id = 1;
+    string upload_url = 2;
+}
+
+//profile传入的blobID
+message GetBlobRequest {
+    string id = 1;
+}
+
+//返回data
+message GetBlobResponse {
+    bytes data = 1;
+}
+
+//profile给定blobID和有效期去获取图片url
+message GetBlobURLRequest {
+    string id = 1;
+    int32 timeout_sec = 2;
+}
+
+//返回图片URL
+message GetBlobURLResponse {
+    string url = 1;
+}
+
+service BlobService {
+    rpc CreateBlob(CreateBlobRequest) returns (CreateBlobResponse);
+    rpc GetBlob(GetBlobRequest) returns (GetBlobResponse);
+    rpc GetBlobURL(GetBlobURLRequest) returns (GetBlobURLResponse);
+
+}

@@ -1,0 +1,57 @@
+/* pages/register/register.wxss */
+.lic-tmpl{
+    width: 600rpx;
+    height: 450rpx;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.stretch{
+    width:100%;
+    height:100%;
+}
+
+.lic-tmpl-img{
+    position: absolute;
+    opacity: 0.3;
+}
+
+.cuIcon-camerafill{
+    font-size: 200rpx;
+}
+
+.instruction{
+    position: absolute;
+    bottom: -60rpx;
+    font-weight: 500;
+    font-size: unset;
+}
+
+.container{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 40rpx 0; 
+    box-sizing: border-box;
+}
+
+.lic-from{
+    width:600rpx;
+    box-sizing: content-box;
+}
+
+.cu-form-group .title {
+    min-width: calc(4em + 30rpx);
+}
+
+.check {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100rpx;
+    height: 100rpx;
+}

@@ -1,0 +1,142 @@
+syntax = "proto3";
+package rental.v1;
+option go_package="coolcar/rental/api/gen/v1;rentalpb";
+
+
+//位置信息
+message Location{
+    double latitude = 1;
+    double longitude = 2;
+}
+
+//行程状态
+enum TripStatus{
+    TS_NOT_SPECIFIED = 0;
+    IN_PROGRESS = 1;
+    FINISHED = 2;
+}
+
+//行程实体
+message TripEntity{
+    string id = 1;
+    Trip trip = 2;
+}
+
+//位置状态
+message LocationStatus{
+    Location location = 1;
+    int32 fee_cent = 2;
+    double km_driven = 3;
+    string poi_name = 4;
+    int64 timestamp_sec = 5;
+}
+
+//行程信息
+message Trip{
+    string account_id = 1;
+    string car_id = 2;
+    LocationStatus start = 3;
+    LocationStatus current = 4;
+    LocationStatus end = 5;
+    TripStatus status = 6;
+    string identity_id = 7;
+}
+
+//创建行程信息请求
+message CreateTripRequest{
+    Location start = 1;
+    string car_id = 2;
+    string avatar_url = 3;
+}
+
+//获取行程信息请求
+message GetTripRequest{
+    string id = 1;
+}
+
+message GetTripsRequest{
+    TripStatus status = 1;
+}
+
+//响应行程信息
+message GetTripsResponse{
+    repeated TripEntity trips = 1; 
+}
+
+//更新行程信息请求
+message UpdateTripRequest{
+    string id = 1;
+    Location current = 2;
+    bool end_trip = 3;
+}
+
+
+service TripService {
+    rpc CreateTrip (CreateTripRequest) returns (TripEntity);   //创建行程
+    rpc GetTrip (GetTripRequest) returns (Trip);               //获取行程信息
+    rpc GetTrips (GetTripsRequest) returns (GetTripsResponse);  //批量获取行程信息
+    rpc UpdateTrip (UpdateTripRequest) returns (Trip);         //更新行程信息
+}
+
+
+//profile service
+
+//性别
+enum Gender {
+    G_NOT_SPECIFIED = 0;
+    MALE = 1;
+    FEMALE = 2;
+}
+
+//身份审核状态, 有服务器决定
+enum IdentityStatus {
+    UNSUBMITTED = 0;
+    PENDING = 1;
+    VERIFIED = 2;
+}
+
+//介绍信息
+message Profile {
+    Identity identity = 1;
+    IdentityStatus identity_status = 2;
+}
+
+//用户信息
+message Identity {
+    string lic_number = 1;
+    string name = 2;
+    Gender gender = 3;
+    int64  birth_data_millis = 4;
+}
+
+//不需要字段，只允许拿出自己的profile
+message GetProfileRequest {}
+message ClearProfileRequest{}
+
+//不需要字段,
+message GetProfilePhotoRequest {}
+
+message GetProfilePhotoResponse {
+    string url = 1;
+}
+
+message CreateProfilePhotoRequest {}
+
+message CreateProfilePhotoResponse {
+    string upload_url = 1;
+}
+
+message CompleteProfilePhotoRequest {}
+
+message ClearProfilePhotoRequest{}
+message ClearProfilePhotoResponse{}
+
+service ProfileService {
+    rpc GetProfile (GetProfileRequest) returns (Profile);         //获取介绍信息
+    rpc SubmitProfile (Identity) returns (Profile);               //提交信息
+    rpc ClearProfile (ClearProfileRequest) returns (Profile);     //清理信息
+    rpc GetProfilePhoto (GetProfilePhotoRequest) returns (GetProfilePhotoResponse);           //获取图片load_url
+    rpc CreateProfilePhoto (CreateProfilePhotoRequest) returns (CreateProfilePhotoResponse);  //获取上传图片url
+    rpc CompleteProfilePhoto (CompleteProfilePhotoRequest) returns (Identity);                //完成上传头像，返回 AI 识别结果。
+    rpc ClearProfilePhoto (ClearProfilePhotoRequest) returns (ClearProfilePhotoResponse);    //清除图片信息
+}

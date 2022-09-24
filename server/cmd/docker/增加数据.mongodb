@@ -1,0 +1,218 @@
+//增加数据
+db.account.insertMany([
+  {
+    _id: "01",
+    open_id:"trip01",
+    login_count: 3,
+  },
+  {
+    _id: "02",
+    open_id: "trip02",
+    login_count:4,
+  },
+])
+
+db.acconut.insert()
+db.account.insertOne()
+db.account.insertMany()
+
+//删除数据
+db.account.deleteOne({
+  _id: "01"
+})
+
+db.account.deleteOne()
+db.account.deleteMany()
+
+db.account.insertMany([
+  {
+   _id: "01",
+   open_id:"trip01",
+   login_count: 3,
+  },
+  {
+   _id: "03",
+   open_id:"trip03",
+   login_count: 3,
+  },
+  {
+   _id: "04",
+   open_id:"trip04",
+   login_count: 3,
+  },
+  {
+   _id: "05",
+   open_id:"trip05",
+   login_count: 8,
+  }
+])
+
+
+
+//查数据
+db.account.find()
+ab.account.findAndModify()
+
+
+//更新数据
+db.my_db.insertOne({
+    _id: "00",
+    name: "yangkuang",
+})
+
+db.my_db.update({
+  _id: "00"
+},{
+  $inc:{
+    login_count: 100,
+  },
+  $set:{
+    from: "guizhou",
+    open_id: "trip00",
+    }
+  })
+
+db.my_db.update({
+    _id:"00"
+},{
+    $set:{
+        open_id:"trip05",
+        login_count:0,
+        habit:"code",
+        from: "无锡",
+    } 
+})
+
+db.account.update()
+db.account.updateOne()
+db.account.updateMany()
+
+db.account.find()
+
+查找大于3的login_count
+db.account.find({
+  login_count:{$gt:3}
+})
+
+and逻辑查找
+db.account.find({
+  login_count:{$gt:3},
+  open_id:"trip500",
+})
+
+更新数据
+db.account.update({
+  _id: "02"
+  },
+  {
+    $set:{
+      profile:{
+        name:"abc",
+        age: 21,
+        photo_url: "https://example.com/123",
+  }
+ }
+})
+
+//根据字段查找
+db.account.find({
+  "profile.age":{$lte: 30}
+})
+
+db.account.getIndexes({
+  "profile.age":1
+})
+
+//or逻辑查找
+//$or:[{con1, con2} or {con3}]
+db.account.find({
+  $or:[
+    {
+      login_count:{$gt: 2},
+      open_id: "trip05",
+    },
+    {
+      login_count: 3,
+    }
+  ]
+})
+
+
+//查找open_id，如果有则找到，没有则创建
+function resolveOpenId(open_id){
+  return db.my_db.update({
+    open_id: open_id
+  }, {
+    $set:{
+      open_id: open_id
+    }
+  }, {
+    upsert: true
+  })
+}
+
+resolveOpenId("01")
+
+
+db.account.drop()
+
+db.account.insertMany([
+  {
+    open_id: "123"
+  },
+  {
+    open_id: "456"
+  }
+])
+
+function resolveOpenId(open_id){
+  return db.my_db.findAndModify({
+    query:{
+      open_id: open_id
+    }, update:{
+      $set: {open_id: open_id}
+  },
+    upsert: true,
+    new:true,
+  })
+}
+resolveOpenId("trip5")
+resolveOpenId("abc")
+
+db.account.drop()
+db.my_db.drop()
+db.trip.drop()
+db.account.createIndex({
+    open_id:1,
+}, {
+    unique:true,
+})
+
+db.trip.createIndex({
+    "trip.accountid":1,
+    "trip.satus":1,
+  }, {
+    unique:true,
+    partialFilterExpression: {
+      "trip.satus":1,
+    }
+  })
+
+db.trip.drop()
+db.account.drop()
+
+
+db.account.createIndex({
+    open_id: 1,
+},{
+    unique: true,
+})
+db.trip.createIndex({
+    "trip.accountid": 1,
+    "trip.status": 1,
+}, {
+    unique: true,
+    partialFilterExpression: {
+        "trip.status": 1,
+    }
+})
